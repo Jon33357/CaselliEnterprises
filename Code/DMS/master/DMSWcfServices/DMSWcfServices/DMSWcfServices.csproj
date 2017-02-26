@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0D15A22A-8D84-4602-A9AF-F1A70D2D5DF2}</ProjectGuid>
+    <ProjectGuid>{018A69F7-3F2B-4A05-8483-BA10C58B715E}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AccountingWcfServices</RootNamespace>
-    <AssemblyName>AccountingWcfServices</AssemblyName>
+    <RootNamespace>DMSWcfServices</RootNamespace>
+    <AssemblyName>DMSWcfServices</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -99,65 +99,125 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Code\DAL\EF\AccountingDB.Context.tt">
+    <Content Include="Code\DAL\EF\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AccountingDB.edmx</DependentUpon>
-      <LastGenOutput>AccountingDB.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Code\DAL\EF\AccountingDB.tt">
+    <Content Include="Code\DAL\EF\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AccountingDB.edmx</DependentUpon>
-      <LastGenOutput>AccountingDB.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Code\ServiceLayer\CoreService.svc" />
     <Content Include="Service1.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\DAL\EF\AccountingDB.Context.cs">
+    <Compile Include="Code\BusinessLogicLayer\CoreServiceManager.cs" />
+    <Compile Include="Code\BusinessLogicLayer\PageManager.cs" />
+    <Compile Include="Code\BusinessLogicLayer\ProductionManager.cs" />
+    <Compile Include="Code\DAL\EF\Batch.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\Batch_Page.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\Client.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\DocElement.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\DocElementHeader.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\DocElementTransaction.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\DocElementType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\DocGroup.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\DocGroupType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\DocType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\Document.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\Entity.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\Index.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\IndexingUnit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\IndexValueDateTime.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\IndexValueText.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AccountingDB.Context.tt</DependentUpon>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Code\DAL\EF\AccountingDB.cs">
+    <Compile Include="Code\DAL\EF\Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AccountingDB.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Code\DAL\EF\AccountingDB.Designer.cs">
+    <Compile Include="Code\DAL\EF\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AccountingDB.edmx</DependentUpon>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Code\DAL\EF\account_document.cs">
-      <DependentUpon>AccountingDB.tt</DependentUpon>
+    <Compile Include="Code\DAL\EF\Page.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Code\DAL\EF\account_transaction.cs">
-      <DependentUpon>AccountingDB.tt</DependentUpon>
+    <Compile Include="Code\DAL\EF\Production.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Code\DAL\POCO\AccountingDB.cs" />
-    <Compile Include="Code\DAL\POCO\account_document.cs" />
-    <Compile Include="Code\DAL\POCO\account_transaction.cs" />
+    <Compile Include="Code\DAL\EF\ProductionType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\DAL\EF\Repository.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\ServiceLayer\CoreService.svc.cs">
+      <DependentUpon>CoreService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Code\ServiceLayer\ICoreService.cs" />
+    <Compile Include="Code\ServiceLayer\ServiceInvocationResult.cs" />
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
     <Compile Include="IService1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Code\DAL\DAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Code\IntegrationLayer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Code\DAL\EF\AccountingDB.edmx">
+    <EntityDeploy Include="Code\DAL\EF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AccountingDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Code\DAL\EF\AccountingDB.edmx.diagram">
-      <DependentUpon>AccountingDB.edmx</DependentUpon>
+    <Content Include="Code\DAL\EF\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -182,9 +242,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63792</DevelopmentServerPort>
+          <DevelopmentServerPort>54075</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63792/</IISUrl>
+          <IISUrl>http://localhost:54075/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

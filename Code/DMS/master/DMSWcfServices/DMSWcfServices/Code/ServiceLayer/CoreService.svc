@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="DMSWcfServices.Code.ServiceLayer.CoreService" CodeBehind="CoreService.svc.cs" %>
