@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DMSWcfServices.Code.BusinessLogicLayer
 {
-    public class PageManager
+    public class PageManager : IPageManager
     {
         //still need to implement dependency injection
         DMSEntities dmsEntities;

@@ -7,6 +7,9 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
+
+
+
 namespace DMSWcfServices.Code.ServiceLayer
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "CoreService" in code, svc and config file together.
@@ -14,7 +17,7 @@ namespace DMSWcfServices.Code.ServiceLayer
     public class CoreService : ICoreService
     {
         //still need to implement dependency injection
-        CoreServiceManager coreServiceManager;
+        ICoreServiceManager coreServiceManager;
 
 
         ServiceInvocationResult ICoreService.putProductionUnstructured(Production prod, bool? allowUpdates)

@@ -7,11 +7,16 @@ using System.Web;
 
 namespace DMSWcfServices.Code.BusinessLogicLayer
 {
-    public class CoreServiceManager
+    public class CoreServiceManager : ICoreServiceManager
     {
-        //still need to implement dependency injection
-        ProductionManager prodManager;
-        PageManager pageManager;
+        IProductionManager prodManager;
+        IPageManager pageManager;
+
+        //contructor for DI
+        public CoreServiceManager(IProductionManager prodManager, IPageManager pageManager) {
+            this.prodManager = prodManager;
+            this.pageManager = pageManager;
+        }
 
         //still need to implement transactionality in DB access
         public ServiceInvocationResult putProductionUnstructured(Production prod, bool? allowUpdates)

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DMSWcfServices.Code.BusinessLogicLayer
 {
-    public class ProductionManager
+    public class ProductionManager : IProductionManager
     {
         //still need to implement dependency injection
         DMSEntities dmsEntities;
