@@ -1,0 +1,1217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="version" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Batch_Page">
+          <Key>
+            <PropertyRef Name="batch_id" />
+            <PropertyRef Name="production_id" />
+            <PropertyRef Name="page_number" />
+          </Key>
+          <Property Name="batch_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="production_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="page_number" Type="int" Nullable="false" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="version" Type="smallint" Nullable="false" />
+          <Property Name="type_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocGroupType">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocType">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="type_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="version" Type="smallint" Nullable="false" />
+          <Property Name="doc_location" Type="varchar" MaxLength="255" />
+          <Property Name="state_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="state_date" Type="datetime" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DMS.dbo.Document_DocGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Document_DocGroup">
+          <Key>
+            <PropertyRef Name="doc_id" />
+            <PropertyRef Name="doc_group_code" />
+          </Key>
+          <Property Name="doc_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="doc_group_code" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Document_Page">
+          <Key>
+            <PropertyRef Name="doc_id" />
+            <PropertyRef Name="production_id" />
+            <PropertyRef Name="page_number" />
+          </Key>
+          <Property Name="doc_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="production_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="page_number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Index">
+          <Key>
+            <PropertyRef Name="indexing_unit_id" />
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="indexing_unit_id" Type="bigint" Nullable="false" />
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="order" Type="tinyint" />
+          <Property Name="schema_code" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="IndexingUnit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IndexValueDateTime">
+          <Key>
+            <PropertyRef Name="indexing_unit_id" />
+            <PropertyRef Name="index_code" />
+          </Key>
+          <Property Name="indexing_unit_id" Type="bigint" Nullable="false" />
+          <Property Name="index_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IndexValueText">
+          <Key>
+            <PropertyRef Name="indexing_unit_id" />
+            <PropertyRef Name="index_code" />
+          </Key>
+          <Property Name="indexing_unit_id" Type="bigint" Nullable="false" />
+          <Property Name="index_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="production_id" />
+            <PropertyRef Name="page_number" />
+          </Key>
+          <Property Name="production_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="page_number" Type="int" Nullable="false" />
+          <Property Name="indexing_unit_id" Type="bigint" />
+          <Property Name="capture_date" Type="datetime" />
+          <Property Name="capture_orientation_type_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="capture_size_type_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="capture_resolution_type_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="capture_color_type_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="repository_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="file_type_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="file_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="state_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="state_date" Type="datetime" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Production">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="indexing_unit_id" Type="bigint" />
+          <Property Name="type_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="client_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductionType">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Repository">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+          <Property Name="host" Type="nvarchar" MaxLength="50" />
+          <Property Name="user" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="location_string" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Batch_Page_Batch">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="1" />
+          <End Role="Batch_Page" Type="Self.Batch_Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Batch_Page">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Batch_Page_Page">
+          <End Role="Page" Type="Self.Page" Multiplicity="1" />
+          <End Role="Batch_Page" Type="Self.Batch_Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="production_id" />
+              <PropertyRef Name="page_number" />
+            </Principal>
+            <Dependent Role="Batch_Page">
+              <PropertyRef Name="production_id" />
+              <PropertyRef Name="page_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocGroup_DocGroupType">
+          <End Role="DocGroupType" Type="Self.DocGroupType" Multiplicity="0..1" />
+          <End Role="DocGroup" Type="Self.DocGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocGroupType">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="DocGroup">
+              <PropertyRef Name="type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_DocGroup_DocGroup">
+          <End Role="DocGroup" Type="Self.DocGroup" Multiplicity="1" />
+          <End Role="Document_DocGroup" Type="Self.Document_DocGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocGroup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Document_DocGroup">
+              <PropertyRef Name="doc_group_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_DocGroup_Document">
+          <End Role="Document" Type="Self.Document" Multiplicity="1" />
+          <End Role="Document_DocGroup" Type="Self.Document_DocGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Document_DocGroup">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_DocType">
+          <End Role="DocType" Type="Self.DocType" Multiplicity="0..1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocType">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_Page_Document">
+          <End Role="Document" Type="Self.Document" Multiplicity="1" />
+          <End Role="Document_Page" Type="Self.Document_Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Document_Page">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_Page_Page">
+          <End Role="Page" Type="Self.Page" Multiplicity="1" />
+          <End Role="Document_Page" Type="Self.Document_Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="production_id" />
+              <PropertyRef Name="page_number" />
+            </Principal>
+            <Dependent Role="Document_Page">
+              <PropertyRef Name="production_id" />
+              <PropertyRef Name="page_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Index_IndexingUnit">
+          <End Role="IndexingUnit" Type="Self.IndexingUnit" Multiplicity="1" />
+          <End Role="Index" Type="Self.Index" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndexingUnit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Index">
+              <PropertyRef Name="indexing_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Index_IndexValueDateTime">
+          <End Role="IndexValueDateTime" Type="Self.IndexValueDateTime" Multiplicity="1" />
+          <End Role="Index" Type="Self.Index" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="IndexValueDateTime">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="index_code" />
+            </Principal>
+            <Dependent Role="Index">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Index_IndexValueText">
+          <End Role="IndexValueText" Type="Self.IndexValueText" Multiplicity="1" />
+          <End Role="Index" Type="Self.Index" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="IndexValueText">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="index_code" />
+            </Principal>
+            <Dependent Role="Index">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Page_IndexingUnit">
+          <End Role="IndexingUnit" Type="Self.IndexingUnit" Multiplicity="0..1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndexingUnit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="indexing_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Page_Production">
+          <End Role="Production" Type="Self.Production" Multiplicity="1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Production">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="production_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Page_Repository">
+          <End Role="Repository" Type="Self.Repository" Multiplicity="0..1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repository">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="repository_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Production_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Production" Type="Self.Production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Production">
+              <PropertyRef Name="client_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Production_IndexingUnit">
+          <End Role="IndexingUnit" Type="Self.IndexingUnit" Multiplicity="0..1" />
+          <End Role="Production" Type="Self.Production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndexingUnit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Production">
+              <PropertyRef Name="indexing_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Production_ProductionType">
+          <End Role="ProductionType" Type="Self.ProductionType" Multiplicity="1" />
+          <End Role="Production" Type="Self.Production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionType">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Production">
+              <PropertyRef Name="type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DMSModelStoreContainer">
+          <EntitySet Name="Batch" EntityType="Self.Batch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Batch_Page" EntityType="Self.Batch_Page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocGroup" EntityType="Self.DocGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocGroupType" EntityType="Self.DocGroupType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocType" EntityType="Self.DocType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document_Page" EntityType="Self.Document_Page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Index" EntityType="Self.Index" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndexingUnit" EntityType="Self.IndexingUnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndexValueDateTime" EntityType="Self.IndexValueDateTime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndexValueText" EntityType="Self.IndexValueText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Page" EntityType="Self.Page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Production" EntityType="Self.Production" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductionType" EntityType="Self.ProductionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repository" EntityType="Self.Repository" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document_DocGroup" EntityType="Self.Document_DocGroup" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Document_DocGroup].[doc_id] AS [doc_id], 
+    [Document_DocGroup].[doc_group_code] AS [doc_group_code]
+    FROM [dbo].[Document_DocGroup] AS [Document_DocGroup]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Batch_Page_Batch" Association="Self.FK_Batch_Page_Batch">
+            <End Role="Batch" EntitySet="Batch" />
+            <End Role="Batch_Page" EntitySet="Batch_Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Batch_Page_Page" Association="Self.FK_Batch_Page_Page">
+            <End Role="Page" EntitySet="Page" />
+            <End Role="Batch_Page" EntitySet="Batch_Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocGroup_DocGroupType" Association="Self.FK_DocGroup_DocGroupType">
+            <End Role="DocGroupType" EntitySet="DocGroupType" />
+            <End Role="DocGroup" EntitySet="DocGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocGroup_DocGroup" Association="Self.FK_Document_DocGroup_DocGroup">
+            <End Role="DocGroup" EntitySet="DocGroup" />
+            <End Role="Document_DocGroup" EntitySet="Document_DocGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocGroup_Document" Association="Self.FK_Document_DocGroup_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Document_DocGroup" EntitySet="Document_DocGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocType" Association="Self.FK_Document_DocType">
+            <End Role="DocType" EntitySet="DocType" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_Page_Document" Association="Self.FK_Document_Page_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Document_Page" EntitySet="Document_Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_Page_Page" Association="Self.FK_Document_Page_Page">
+            <End Role="Page" EntitySet="Page" />
+            <End Role="Document_Page" EntitySet="Document_Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Index_IndexingUnit" Association="Self.FK_Index_IndexingUnit">
+            <End Role="IndexingUnit" EntitySet="IndexingUnit" />
+            <End Role="Index" EntitySet="Index" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Index_IndexValueDateTime" Association="Self.FK_Index_IndexValueDateTime">
+            <End Role="IndexValueDateTime" EntitySet="IndexValueDateTime" />
+            <End Role="Index" EntitySet="Index" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Index_IndexValueText" Association="Self.FK_Index_IndexValueText">
+            <End Role="IndexValueText" EntitySet="IndexValueText" />
+            <End Role="Index" EntitySet="Index" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_IndexingUnit" Association="Self.FK_Page_IndexingUnit">
+            <End Role="IndexingUnit" EntitySet="IndexingUnit" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_Production" Association="Self.FK_Page_Production">
+            <End Role="Production" EntitySet="Production" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_Repository" Association="Self.FK_Page_Repository">
+            <End Role="Repository" EntitySet="Repository" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Production_Client" Association="Self.FK_Production_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Production" EntitySet="Production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Production_IndexingUnit" Association="Self.FK_Production_IndexingUnit">
+            <End Role="IndexingUnit" EntitySet="IndexingUnit" />
+            <End Role="Production" EntitySet="Production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Production_ProductionType" Association="Self.FK_Production_ProductionType">
+            <End Role="ProductionType" EntitySet="ProductionType" />
+            <End Role="Production" EntitySet="Production" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="version" Type="Int16" />
+          <NavigationProperty Name="Batch_Page" Relationship="Self.FK_Batch_Page_Batch" FromRole="Batch" ToRole="Batch_Page" />
+        </EntityType>
+        <EntityType Name="Batch_Page">
+          <Key>
+            <PropertyRef Name="batch_id" />
+            <PropertyRef Name="production_id" />
+            <PropertyRef Name="page_number" />
+          </Key>
+          <Property Name="batch_id" Type="Guid" Nullable="false" />
+          <Property Name="production_id" Type="Guid" Nullable="false" />
+          <Property Name="page_number" Type="Int32" Nullable="false" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Batch" Relationship="Self.FK_Batch_Page_Batch" FromRole="Batch_Page" ToRole="Batch" />
+          <NavigationProperty Name="Page" Relationship="Self.FK_Batch_Page_Page" FromRole="Batch_Page" ToRole="Page" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Production" Relationship="Self.FK_Production_Client" FromRole="Client" ToRole="Production" />
+        </EntityType>
+        <EntityType Name="DocGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="version" Type="Int16" Nullable="false" />
+          <Property Name="type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="DocGroupType" Relationship="Self.FK_DocGroup_DocGroupType" FromRole="DocGroup" ToRole="DocGroupType" />
+          <NavigationProperty Name="Document" Relationship="Self.Document_DocGroup" FromRole="DocGroup" ToRole="Document" />
+        </EntityType>
+        <EntityType Name="DocGroupType">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="DocGroup" Relationship="Self.FK_DocGroup_DocGroupType" FromRole="DocGroupType" ToRole="DocGroup" />
+        </EntityType>
+        <EntityType Name="DocType">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Document" Relationship="Self.FK_Document_DocType" FromRole="DocType" ToRole="Document" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="version" Type="Int16" Nullable="false" />
+          <Property Name="doc_location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="state_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state_date" Type="DateTime" Precision="3" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="DocType" Relationship="Self.FK_Document_DocType" FromRole="Document" ToRole="DocType" />
+          <NavigationProperty Name="Page" Relationship="Self.Document_Page" FromRole="Document" ToRole="Page" />
+          <NavigationProperty Name="DocGroup" Relationship="Self.Document_DocGroup" FromRole="Document" ToRole="DocGroup" />
+        </EntityType>
+        <EntityType Name="Index">
+          <Key>
+            <PropertyRef Name="indexing_unit_id" />
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="indexing_unit_id" Type="Int64" Nullable="false" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="order" Type="Byte" />
+          <Property Name="schema_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IndexingUnit" Relationship="Self.FK_Index_IndexingUnit" FromRole="Index" ToRole="IndexingUnit" />
+          <NavigationProperty Name="IndexValueDateTime" Relationship="Self.FK_Index_IndexValueDateTime" FromRole="Index" ToRole="IndexValueDateTime" />
+          <NavigationProperty Name="IndexValueText" Relationship="Self.FK_Index_IndexValueText" FromRole="Index" ToRole="IndexValueText" />
+        </EntityType>
+        <EntityType Name="IndexingUnit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Index" Relationship="Self.FK_Index_IndexingUnit" FromRole="IndexingUnit" ToRole="Index" />
+          <NavigationProperty Name="Page" Relationship="Self.FK_Page_IndexingUnit" FromRole="IndexingUnit" ToRole="Page" />
+          <NavigationProperty Name="Production" Relationship="Self.FK_Production_IndexingUnit" FromRole="IndexingUnit" ToRole="Production" />
+        </EntityType>
+        <EntityType Name="IndexValueDateTime">
+          <Key>
+            <PropertyRef Name="indexing_unit_id" />
+            <PropertyRef Name="index_code" />
+          </Key>
+          <Property Name="indexing_unit_id" Type="Int64" Nullable="false" />
+          <Property Name="index_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Index" Relationship="Self.FK_Index_IndexValueDateTime" FromRole="IndexValueDateTime" ToRole="Index" />
+        </EntityType>
+        <EntityType Name="IndexValueText">
+          <Key>
+            <PropertyRef Name="indexing_unit_id" />
+            <PropertyRef Name="index_code" />
+          </Key>
+          <Property Name="indexing_unit_id" Type="Int64" Nullable="false" />
+          <Property Name="index_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Index" Relationship="Self.FK_Index_IndexValueText" FromRole="IndexValueText" ToRole="Index" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="production_id" />
+            <PropertyRef Name="page_number" />
+          </Key>
+          <Property Name="production_id" Type="Guid" Nullable="false" />
+          <Property Name="page_number" Type="Int32" Nullable="false" />
+          <Property Name="indexing_unit_id" Type="Int64" />
+          <Property Name="capture_date" Type="DateTime" Precision="3" />
+          <Property Name="capture_orientation_type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="capture_size_type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="capture_resolution_type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="capture_color_type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="repository_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="file_type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state_date" Type="DateTime" Precision="3" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Batch_Page" Relationship="Self.FK_Batch_Page_Page" FromRole="Page" ToRole="Batch_Page" />
+          <NavigationProperty Name="IndexingUnit" Relationship="Self.FK_Page_IndexingUnit" FromRole="Page" ToRole="IndexingUnit" />
+          <NavigationProperty Name="Production" Relationship="Self.FK_Page_Production" FromRole="Page" ToRole="Production" />
+          <NavigationProperty Name="Repository" Relationship="Self.FK_Page_Repository" FromRole="Page" ToRole="Repository" />
+          <NavigationProperty Name="Document" Relationship="Self.Document_Page" FromRole="Page" ToRole="Document" />
+        </EntityType>
+        <EntityType Name="Production">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="indexing_unit_id" Type="Int64" />
+          <Property Name="type_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="client_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Production_Client" FromRole="Production" ToRole="Client" />
+          <NavigationProperty Name="IndexingUnit" Relationship="Self.FK_Production_IndexingUnit" FromRole="Production" ToRole="IndexingUnit" />
+          <NavigationProperty Name="Pages" Relationship="Self.FK_Page_Production" FromRole="Production" ToRole="Page" />
+          <NavigationProperty Name="ProductionType" Relationship="Self.FK_Production_ProductionType" FromRole="Production" ToRole="ProductionType" />
+        </EntityType>
+        <EntityType Name="ProductionType">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Production" Relationship="Self.FK_Production_ProductionType" FromRole="ProductionType" ToRole="Production" />
+        </EntityType>
+        <EntityType Name="Repository">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="host" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="location_string" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Page" Relationship="Self.FK_Page_Repository" FromRole="Repository" ToRole="Page" />
+        </EntityType>
+        <Association Name="FK_Batch_Page_Batch">
+          <End Role="Batch" Type="Self.Batch" Multiplicity="1" />
+          <End Role="Batch_Page" Type="Self.Batch_Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Batch_Page">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Batch_Page_Page">
+          <End Role="Page" Type="Self.Page" Multiplicity="1" />
+          <End Role="Batch_Page" Type="Self.Batch_Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="production_id" />
+              <PropertyRef Name="page_number" />
+            </Principal>
+            <Dependent Role="Batch_Page">
+              <PropertyRef Name="production_id" />
+              <PropertyRef Name="page_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Production_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Production" Type="Self.Production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Production">
+              <PropertyRef Name="client_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocGroup_DocGroupType">
+          <End Role="DocGroupType" Type="Self.DocGroupType" Multiplicity="0..1" />
+          <End Role="DocGroup" Type="Self.DocGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocGroupType">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="DocGroup">
+              <PropertyRef Name="type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_DocType">
+          <End Role="DocType" Type="Self.DocType" Multiplicity="0..1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocType">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Index_IndexingUnit">
+          <End Role="IndexingUnit" Type="Self.IndexingUnit" Multiplicity="1" />
+          <End Role="Index" Type="Self.Index" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndexingUnit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Index">
+              <PropertyRef Name="indexing_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Index_IndexValueDateTime">
+          <End Role="IndexValueDateTime" Type="Self.IndexValueDateTime" Multiplicity="1" />
+          <End Role="Index" Type="Self.Index" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="IndexValueDateTime">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="index_code" />
+            </Principal>
+            <Dependent Role="Index">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Index_IndexValueText">
+          <End Role="IndexValueText" Type="Self.IndexValueText" Multiplicity="1" />
+          <End Role="Index" Type="Self.Index" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="IndexValueText">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="index_code" />
+            </Principal>
+            <Dependent Role="Index">
+              <PropertyRef Name="indexing_unit_id" />
+              <PropertyRef Name="code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Page_IndexingUnit">
+          <End Role="IndexingUnit" Type="Self.IndexingUnit" Multiplicity="0..1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndexingUnit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="indexing_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Production_IndexingUnit">
+          <End Role="IndexingUnit" Type="Self.IndexingUnit" Multiplicity="0..1" />
+          <End Role="Production" Type="Self.Production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndexingUnit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Production">
+              <PropertyRef Name="indexing_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Page_Production">
+          <End Role="Production" Type="Self.Production" Multiplicity="1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Production">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="production_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Page_Repository">
+          <End Role="Repository" Type="Self.Repository" Multiplicity="0..1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repository">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="repository_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Production_ProductionType">
+          <End Role="ProductionType" Type="Self.ProductionType" Multiplicity="1" />
+          <End Role="Production" Type="Self.Production" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionType">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Production">
+              <PropertyRef Name="type_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Document_Page">
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+        </Association>
+        <Association Name="Document_DocGroup">
+          <End Role="DocGroup" Type="Self.DocGroup" Multiplicity="*" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Batch" EntityType="Self.Batch" />
+          <EntitySet Name="Batch_Page" EntityType="Self.Batch_Page" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="DocGroup" EntityType="Self.DocGroup" />
+          <EntitySet Name="DocGroupType" EntityType="Self.DocGroupType" />
+          <EntitySet Name="DocType" EntityType="Self.DocType" />
+          <EntitySet Name="Document" EntityType="Self.Document" />
+          <EntitySet Name="Index" EntityType="Self.Index" />
+          <EntitySet Name="IndexingUnit" EntityType="Self.IndexingUnit" />
+          <EntitySet Name="IndexValueDateTime" EntityType="Self.IndexValueDateTime" />
+          <EntitySet Name="IndexValueText" EntityType="Self.IndexValueText" />
+          <EntitySet Name="Page" EntityType="Self.Page" />
+          <EntitySet Name="Production" EntityType="Self.Production" />
+          <EntitySet Name="ProductionType" EntityType="Self.ProductionType" />
+          <EntitySet Name="Repository" EntityType="Self.Repository" />
+          <AssociationSet Name="FK_Batch_Page_Batch" Association="Self.FK_Batch_Page_Batch">
+            <End Role="Batch" EntitySet="Batch" />
+            <End Role="Batch_Page" EntitySet="Batch_Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Batch_Page_Page" Association="Self.FK_Batch_Page_Page">
+            <End Role="Page" EntitySet="Page" />
+            <End Role="Batch_Page" EntitySet="Batch_Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Production_Client" Association="Self.FK_Production_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Production" EntitySet="Production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocGroup_DocGroupType" Association="Self.FK_DocGroup_DocGroupType">
+            <End Role="DocGroupType" EntitySet="DocGroupType" />
+            <End Role="DocGroup" EntitySet="DocGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocType" Association="Self.FK_Document_DocType">
+            <End Role="DocType" EntitySet="DocType" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Index_IndexingUnit" Association="Self.FK_Index_IndexingUnit">
+            <End Role="IndexingUnit" EntitySet="IndexingUnit" />
+            <End Role="Index" EntitySet="Index" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Index_IndexValueDateTime" Association="Self.FK_Index_IndexValueDateTime">
+            <End Role="IndexValueDateTime" EntitySet="IndexValueDateTime" />
+            <End Role="Index" EntitySet="Index" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Index_IndexValueText" Association="Self.FK_Index_IndexValueText">
+            <End Role="IndexValueText" EntitySet="IndexValueText" />
+            <End Role="Index" EntitySet="Index" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_IndexingUnit" Association="Self.FK_Page_IndexingUnit">
+            <End Role="IndexingUnit" EntitySet="IndexingUnit" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Production_IndexingUnit" Association="Self.FK_Production_IndexingUnit">
+            <End Role="IndexingUnit" EntitySet="IndexingUnit" />
+            <End Role="Production" EntitySet="Production" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_Production" Association="Self.FK_Page_Production">
+            <End Role="Production" EntitySet="Production" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Page_Repository" Association="Self.FK_Page_Repository">
+            <End Role="Repository" EntitySet="Repository" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Production_ProductionType" Association="Self.FK_Production_ProductionType">
+            <End Role="ProductionType" EntitySet="ProductionType" />
+            <End Role="Production" EntitySet="Production" />
+          </AssociationSet>
+          <AssociationSet Name="Document_Page" Association="Self.Document_Page">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="Document_DocGroup" Association="Self.Document_DocGroup">
+            <End Role="DocGroup" EntitySet="DocGroup" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DMSModelStoreContainer" CdmEntityContainer="DMSEntities">
+          <EntitySetMapping Name="Batch">
+            <EntityTypeMapping TypeName="DMSModel.Batch">
+              <MappingFragment StoreEntitySet="Batch">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Batch_Page">
+            <EntityTypeMapping TypeName="DMSModel.Batch_Page">
+              <MappingFragment StoreEntitySet="Batch_Page">
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="production_id" ColumnName="production_id" />
+                <ScalarProperty Name="page_number" ColumnName="page_number" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="DMSModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocGroup">
+            <EntityTypeMapping TypeName="DMSModel.DocGroup">
+              <MappingFragment StoreEntitySet="DocGroup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="type_code" ColumnName="type_code" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocGroupType">
+            <EntityTypeMapping TypeName="DMSModel.DocGroupType">
+              <MappingFragment StoreEntitySet="DocGroupType">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocType">
+            <EntityTypeMapping TypeName="DMSModel.DocType">
+              <MappingFragment StoreEntitySet="DocType">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Document">
+            <EntityTypeMapping TypeName="DMSModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type_code" ColumnName="type_code" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="doc_location" ColumnName="doc_location" />
+                <ScalarProperty Name="state_code" ColumnName="state_code" />
+                <ScalarProperty Name="state_date" ColumnName="state_date" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Index">
+            <EntityTypeMapping TypeName="DMSModel.Index">
+              <MappingFragment StoreEntitySet="Index">
+                <ScalarProperty Name="indexing_unit_id" ColumnName="indexing_unit_id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="schema_code" ColumnName="schema_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndexingUnit">
+            <EntityTypeMapping TypeName="DMSModel.IndexingUnit">
+              <MappingFragment StoreEntitySet="IndexingUnit">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndexValueDateTime">
+            <EntityTypeMapping TypeName="DMSModel.IndexValueDateTime">
+              <MappingFragment StoreEntitySet="IndexValueDateTime">
+                <ScalarProperty Name="indexing_unit_id" ColumnName="indexing_unit_id" />
+                <ScalarProperty Name="index_code" ColumnName="index_code" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndexValueText">
+            <EntityTypeMapping TypeName="DMSModel.IndexValueText">
+              <MappingFragment StoreEntitySet="IndexValueText">
+                <ScalarProperty Name="indexing_unit_id" ColumnName="indexing_unit_id" />
+                <ScalarProperty Name="index_code" ColumnName="index_code" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Page">
+            <EntityTypeMapping TypeName="DMSModel.Page">
+              <MappingFragment StoreEntitySet="Page">
+                <ScalarProperty Name="production_id" ColumnName="production_id" />
+                <ScalarProperty Name="page_number" ColumnName="page_number" />
+                <ScalarProperty Name="indexing_unit_id" ColumnName="indexing_unit_id" />
+                <ScalarProperty Name="capture_date" ColumnName="capture_date" />
+                <ScalarProperty Name="capture_orientation_type_code" ColumnName="capture_orientation_type_code" />
+                <ScalarProperty Name="capture_size_type_code" ColumnName="capture_size_type_code" />
+                <ScalarProperty Name="capture_resolution_type_code" ColumnName="capture_resolution_type_code" />
+                <ScalarProperty Name="capture_color_type_code" ColumnName="capture_color_type_code" />
+                <ScalarProperty Name="repository_code" ColumnName="repository_code" />
+                <ScalarProperty Name="file_type_code" ColumnName="file_type_code" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="state_code" ColumnName="state_code" />
+                <ScalarProperty Name="state_date" ColumnName="state_date" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Production">
+            <EntityTypeMapping TypeName="DMSModel.Production">
+              <MappingFragment StoreEntitySet="Production">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="indexing_unit_id" ColumnName="indexing_unit_id" />
+                <ScalarProperty Name="type_code" ColumnName="type_code" />
+                <ScalarProperty Name="client_code" ColumnName="client_code" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionType">
+            <EntityTypeMapping TypeName="DMSModel.ProductionType">
+              <MappingFragment StoreEntitySet="ProductionType">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repository">
+            <EntityTypeMapping TypeName="DMSModel.Repository">
+              <MappingFragment StoreEntitySet="Repository">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="host" ColumnName="host" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="location_string" ColumnName="location_string" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Document_Page" TypeName="DMSModel.Document_Page" StoreEntitySet="Document_Page">
+            <EndProperty Name="Document">
+              <ScalarProperty Name="id" ColumnName="doc_id" />
+            </EndProperty>
+            <EndProperty Name="Page">
+              <ScalarProperty Name="production_id" ColumnName="production_id" />
+              <ScalarProperty Name="page_number" ColumnName="page_number" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Document_DocGroup" TypeName="DMSModel.Document_DocGroup" StoreEntitySet="Document_DocGroup">
+            <EndProperty Name="DocGroup">
+              <ScalarProperty Name="id" ColumnName="doc_group_code" />
+            </EndProperty>
+            <EndProperty Name="Document">
+              <ScalarProperty Name="id" ColumnName="doc_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

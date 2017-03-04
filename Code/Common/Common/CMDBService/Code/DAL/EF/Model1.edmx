@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CMDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessKey">
+          <Key>
+            <PropertyRef Name="key" />
+          </Key>
+          <Property Name="key" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ConfigurationAsset">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="group" Type="varchar" MaxLength="50" />
+          <Property Name="subgroup" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ConfigurationAsset_AccessKey">
+          <Key>
+            <PropertyRef Name="configurationasset_code" />
+            <PropertyRef Name="accesskey_key" />
+          </Key>
+          <Property Name="configurationasset_code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="accesskey_key" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ConfigurationAsset_AccessKey_AccessKey">
+          <End Role="AccessKey" Type="Self.AccessKey" Multiplicity="1" />
+          <End Role="ConfigurationAsset_AccessKey" Type="Self.ConfigurationAsset_AccessKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessKey">
+              <PropertyRef Name="key" />
+            </Principal>
+            <Dependent Role="ConfigurationAsset_AccessKey">
+              <PropertyRef Name="accesskey_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConfigurationAsset_AccessKey_ConfigurationAsset">
+          <End Role="ConfigurationAsset" Type="Self.ConfigurationAsset" Multiplicity="1" />
+          <End Role="ConfigurationAsset_AccessKey" Type="Self.ConfigurationAsset_AccessKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConfigurationAsset">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="ConfigurationAsset_AccessKey">
+              <PropertyRef Name="configurationasset_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CMDBModelStoreContainer">
+          <EntitySet Name="AccessKey" EntityType="Self.AccessKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConfigurationAsset" EntityType="Self.ConfigurationAsset" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConfigurationAsset_AccessKey" EntityType="Self.ConfigurationAsset_AccessKey" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ConfigurationAsset_AccessKey_AccessKey" Association="Self.FK_ConfigurationAsset_AccessKey_AccessKey">
+            <End Role="AccessKey" EntitySet="AccessKey" />
+            <End Role="ConfigurationAsset_AccessKey" EntitySet="ConfigurationAsset_AccessKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConfigurationAsset_AccessKey_ConfigurationAsset" Association="Self.FK_ConfigurationAsset_AccessKey_ConfigurationAsset">
+            <End Role="ConfigurationAsset" EntitySet="ConfigurationAsset" />
+            <End Role="ConfigurationAsset_AccessKey" EntitySet="ConfigurationAsset_AccessKey" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CMDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessKey">
+          <Key>
+            <PropertyRef Name="key" />
+          </Key>
+          <Property Name="key" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ConfigurationAssets" Relationship="Self.ConfigurationAsset_AccessKey" FromRole="AccessKey" ToRole="ConfigurationAsset" />
+        </EntityType>
+        <EntityType Name="ConfigurationAsset">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="group" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subgroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccessKeys" Relationship="Self.ConfigurationAsset_AccessKey" FromRole="ConfigurationAsset" ToRole="AccessKey" />
+        </EntityType>
+        <Association Name="ConfigurationAsset_AccessKey">
+          <End Role="AccessKey" Type="Self.AccessKey" Multiplicity="*" />
+          <End Role="ConfigurationAsset" Type="Self.ConfigurationAsset" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CMDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessKeys" EntityType="Self.AccessKey" />
+          <EntitySet Name="ConfigurationAssets" EntityType="Self.ConfigurationAsset" />
+          <AssociationSet Name="ConfigurationAsset_AccessKey" Association="Self.ConfigurationAsset_AccessKey">
+            <End Role="AccessKey" EntitySet="AccessKeys" />
+            <End Role="ConfigurationAsset" EntitySet="ConfigurationAssets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CMDBModelStoreContainer" CdmEntityContainer="CMDBEntities">
+          <EntitySetMapping Name="AccessKeys">
+            <EntityTypeMapping TypeName="CMDBModel.AccessKey">
+              <MappingFragment StoreEntitySet="AccessKey">
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConfigurationAssets">
+            <EntityTypeMapping TypeName="CMDBModel.ConfigurationAsset">
+              <MappingFragment StoreEntitySet="ConfigurationAsset">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="subgroup" ColumnName="subgroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ConfigurationAsset_AccessKey" TypeName="CMDBModel.ConfigurationAsset_AccessKey" StoreEntitySet="ConfigurationAsset_AccessKey">
+            <EndProperty Name="AccessKey">
+              <ScalarProperty Name="key" ColumnName="accesskey_key" />
+            </EndProperty>
+            <EndProperty Name="ConfigurationAsset">
+              <ScalarProperty Name="code" ColumnName="configurationasset_code" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
