@@ -1,7 +1,0 @@
-﻿<%@ ServiceHost 
-    Language="C#" 
-    Debug="true" 
-    Service="DMSWcfService.Code.ServiceLayer.CoreService" 
-    Factory="SimpleInjector.Integration.Wcf.SimpleInjectorServiceHostFactory, SimpleInjector.Integration.Wcf"
-    CodeBehind="CoreService.svc.cs" 
-%>

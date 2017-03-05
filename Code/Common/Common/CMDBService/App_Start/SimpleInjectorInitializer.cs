@@ -1,6 +1,6 @@
-[assembly: WebActivator.PostApplicationStartMethod(typeof(DMSWcfService.App_Start.SimpleInjectorInitializer), "Initialize")]
+[assembly: WebActivator.PostApplicationStartMethod(typeof(CMDBService.App_Start.SimpleInjectorInitializer), "Initialize")]
 
-namespace DMSWcfService.App_Start
+namespace CMDBService.App_Start
 {
     using System.Reflection;
 
@@ -30,14 +30,10 @@ namespace DMSWcfService.App_Start
 
         private static void InitializeContainer(Container container)
         {
-
             //Register your services here.
             // For instance:
             // container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
-
-            container.Register<ICoreServiceManager, CoreServiceManager>(Lifestyle.Singleton);
-            container.Register<IProductionManager, ProductionManager>(Lifestyle.Singleton);
-            container.Register<IPageManager, PageManager>(Lifestyle.Singleton);
+            container.Register<ICMDBServiceManager, CMDBServiceManager>(Lifestyle.Singleton);
         }
     }
 }
