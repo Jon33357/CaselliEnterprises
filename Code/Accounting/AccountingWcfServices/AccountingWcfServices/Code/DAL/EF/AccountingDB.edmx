@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AccountingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="account_document">
+          <Key>
+            <PropertyRef Name="entity_code" />
+            <PropertyRef Name="document_id" />
+          </Key>
+          <Property Name="entity_code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="document_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="doc_location" Type="varchar" MaxLength="255" />
+          <Property Name="state_code" Type="varchar" MaxLength="50" />
+          <Property Name="state_date" Type="datetime" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="account_transaction">
+          <Key>
+            <PropertyRef Name="entity_code" />
+            <PropertyRef Name="document_id" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="entity_code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="document_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="transaction_description" Type="varchar" MaxLength="50" />
+          <Property Name="transaction_amount" Type="smallmoney" />
+          <Property Name="transaction_date" Type="date" />
+          <Property Name="state_code" Type="varchar" MaxLength="50" />
+          <Property Name="state_date" Type="datetime" />
+          <Property Name="last_modified_date" Type="datetime" Nullable="false" />
+          <Property Name="last_modified_by" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="occ_version" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_account_transaction_account_document">
+          <End Role="account_document" Type="Self.account_document" Multiplicity="1" />
+          <End Role="account_transaction" Type="Self.account_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account_document">
+              <PropertyRef Name="entity_code" />
+              <PropertyRef Name="document_id" />
+            </Principal>
+            <Dependent Role="account_transaction">
+              <PropertyRef Name="entity_code" />
+              <PropertyRef Name="document_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AccountingModelStoreContainer">
+          <EntitySet Name="account_document" EntityType="Self.account_document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="account_transaction" EntityType="Self.account_transaction" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_account_transaction_account_document" Association="Self.FK_account_transaction_account_document">
+            <End Role="account_document" EntitySet="account_document" />
+            <End Role="account_transaction" EntitySet="account_transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AccountingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="account_document">
+          <Key>
+            <PropertyRef Name="entity_code" />
+            <PropertyRef Name="document_id" />
+          </Key>
+          <Property Name="entity_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="document_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="doc_location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="state_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state_date" Type="DateTime" Precision="3" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="account_transaction" Relationship="Self.FK_account_transaction_account_document" FromRole="account_document" ToRole="account_transaction" />
+        </EntityType>
+        <EntityType Name="account_transaction">
+          <Key>
+            <PropertyRef Name="entity_code" />
+            <PropertyRef Name="document_id" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="entity_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="document_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="transaction_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="transaction_amount" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="transaction_date" Type="DateTime" Precision="0" />
+          <Property Name="state_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state_date" Type="DateTime" Precision="3" />
+          <Property Name="last_modified_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="occ_version" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="account_document" Relationship="Self.FK_account_transaction_account_document" FromRole="account_transaction" ToRole="account_document" />
+        </EntityType>
+        <Association Name="FK_account_transaction_account_document">
+          <End Role="account_document" Type="Self.account_document" Multiplicity="1" />
+          <End Role="account_transaction" Type="Self.account_transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account_document">
+              <PropertyRef Name="entity_code" />
+              <PropertyRef Name="document_id" />
+            </Principal>
+            <Dependent Role="account_transaction">
+              <PropertyRef Name="entity_code" />
+              <PropertyRef Name="document_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AccountingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="account_document" EntityType="Self.account_document" />
+          <EntitySet Name="account_transaction" EntityType="Self.account_transaction" />
+          <AssociationSet Name="FK_account_transaction_account_document" Association="Self.FK_account_transaction_account_document">
+            <End Role="account_document" EntitySet="account_document" />
+            <End Role="account_transaction" EntitySet="account_transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AccountingModelStoreContainer" CdmEntityContainer="AccountingEntities">
+          <EntitySetMapping Name="account_document">
+            <EntityTypeMapping TypeName="AccountingModel.account_document">
+              <MappingFragment StoreEntitySet="account_document">
+                <ScalarProperty Name="entity_code" ColumnName="entity_code" />
+                <ScalarProperty Name="document_id" ColumnName="document_id" />
+                <ScalarProperty Name="doc_location" ColumnName="doc_location" />
+                <ScalarProperty Name="state_code" ColumnName="state_code" />
+                <ScalarProperty Name="state_date" ColumnName="state_date" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="account_transaction">
+            <EntityTypeMapping TypeName="AccountingModel.account_transaction">
+              <MappingFragment StoreEntitySet="account_transaction">
+                <ScalarProperty Name="entity_code" ColumnName="entity_code" />
+                <ScalarProperty Name="document_id" ColumnName="document_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="transaction_description" ColumnName="transaction_description" />
+                <ScalarProperty Name="transaction_amount" ColumnName="transaction_amount" />
+                <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+                <ScalarProperty Name="state_code" ColumnName="state_code" />
+                <ScalarProperty Name="state_date" ColumnName="state_date" />
+                <ScalarProperty Name="last_modified_date" ColumnName="last_modified_date" />
+                <ScalarProperty Name="last_modified_by" ColumnName="last_modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="occ_version" ColumnName="occ_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
